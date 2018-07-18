@@ -1,0 +1,21 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "react/prop-types": "off",
+        "indent": ["error", 2],
+        "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "Link" ],
+            "specialLink": [ "to" ]
+          }]
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "plugins": [
+        "react"
+    ]
+}
