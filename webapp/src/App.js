@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import ImageList from './containers/ImageList';
 
 class App extends Component {
@@ -12,7 +13,4 @@ class App extends Component {
   }
 }
 
-export default App
-
-
-
+export default App;
