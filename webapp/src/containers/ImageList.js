@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import Home from '../presenters/home';
-import fetchimage from '../actions/index';
+import { fetchImageList, fetchTour } from '../actions/index';
 
 
 const mapStateToProps = (state) => {
@@ -14,11 +14,16 @@ const mapStateToProps = (state) => {
 };
 
 
-const mapDispatchToProps = dispatch => ({
-  genImage: () => {
-    fetchimage(dispatch);
-  },
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    genImage: () => {
+      fetchImageList(dispatch);
+    },
+    onClick: (url) => {
+      fetchTour(dispatch, url);
+    },
+  };
+};
 
 
 export default connect(

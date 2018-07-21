@@ -4,9 +4,9 @@ const defaultState = {
 };
 
 
-const imageList = (state = defaultState, action) => {
+const tour = (state = defaultState, action) => {
   switch (action.type) {
-  case 'FETCH_IMAGE_LIST':
+  case 'FETCH_TOUR':
     return Object.assign({}, state, {
       data: action.payload,
       isFetched: true,
@@ -17,4 +17,4 @@ const imageList = (state = defaultState, action) => {
   }
 };
 
-export default imageList;
+export default tour;

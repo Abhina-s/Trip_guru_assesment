@@ -8,6 +8,7 @@ export default class Home extends React.Component {
 
   render() {
     let imageList = this.props;
+    const { onClick } = this.props;
     imageList = imageList.imageList.data;
     return (
       <div>
@@ -15,7 +16,7 @@ export default class Home extends React.Component {
           return (
             <div className="row">
               <div className="col-sm-6">
-                <div className="card">
+                <div className="card" onClick={() => onClick(value.attributes.url)}>
                   <img
                     className="card-img-top"
                     alt="alternative"
@@ -27,8 +28,10 @@ export default class Home extends React.Component {
                     </h3>
                     {value.attributes.location.name}
                     <br />
+                    <i className="fa fa-star" />
                     {value.attributes.rating}
                     <br />
+                    <i className="fal fa-clock" />
                     {value.attributes.duration_type}
                     <br />
                     {value.attributes.price.max_price_per_person}
@@ -39,7 +42,7 @@ export default class Home extends React.Component {
           );
         }) : null
         }
-      </div >
+      </div>
     );
   }
 }
