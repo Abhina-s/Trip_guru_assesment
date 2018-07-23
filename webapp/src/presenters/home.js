@@ -1,48 +1,133 @@
 import React from 'react';
+import ReactStars from 'react-stars';
+import Spinner from 'react-spinkit';
+
+
+const TourList = ({
+  imageList, isLoaded, previewImgList, onClick, onLoad,
+}) => {
+  const { data } = imageList;
+  return (
+    <div className="container-fluid">
+      <div className="row">
+        {data.map((value, index) => {
+          return (
+            <div key={value.id} className="col-md-6">
+              <div className="card" style={{ width: '40rem' }} onClick={() => onClick(value.attributes.url)}>
+                <img
+                  className="card-img-top"
+                  alt="alternative"
+                  src={previewImgList[index]}
+                  style={{
+                    filter: `${isLoaded ? '' : 'blur(50px)'}`,
+                    transition: '0.5s filter linear',
+                  }}
+                  onLoad={onLoad}
+                />
+                <div className="card-body">
+                  <h3 className="card-title">
+                    {value.attributes.title}
+                  </h3>
+                  <div className="row">
+                    <div className="col md-4">
+                      <i className="fa fa-map-marker" />
+                      &nbsp;
+                      {value.attributes.location.name}
+                    </div>
+                    <div className="col md-4">
+                      <ReactStars
+                        count={5}
+                        value={value.attributes.rating}
+                        edit={false}
+                        size={20}
+                        color1="white"
+                        color2="green"
+                      />
+                    </div>
+                    <div className="col md-4">
+                      {value.attributes.reviews}
+                      &nbsp;
+                      Reviews
+                    </div>
+                    <div className="col md-4">
+                      <i className="fa fa-clock-o" />
+                      &nbsp;
+                      {value.attributes.duration_type.replace('_', ' ')}
+                    </div>
+                  </div>
+                  <hr />
+                  $
+                  {value.attributes.price.min_price_per_person}
+                </div>
+              </div>
+            </div>
+          );
+        })
+        }
+      </div>
+    </div>
+  );
+};
+
+const AppLoading = () => {
+  return (
+    <div className="container-fluid justify-content-center align-items-center">
+      <Spinner style={{ width: 100, height: 100 }} name="circle" />
+    </div>
+  );
+};
+
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoaded: false,
+      previewImgList: [],
+    };
+    this.onLoad = this.onLoad.bind(this);
+  }
+
   componentDidMount() {
     const { genImage } = this.props;
     genImage();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const imgList = [];
+    nextProps.imageList.data.map(value => imgList.push(
+      `https://res.cloudinary.com/thetripguru/image/upload/h_10,w_10/${value.attributes.media.banner.url}.jpg`,
+    ));
+    this.setState((prev => Object.assign({}, prev, {
+      previewImgList: imgList,
+    })));
+  }
+
+  onLoad() {
+    const { imageList } = this.props;
+    const imgList = [];
+    imageList.data.map(value => imgList.push(
+      `https://res.cloudinary.com/thetripguru/image/upload/h_300,w_500/${value.attributes.media.banner.url}.jpg`,
+    ));
+    this.setState((prev => Object.assign({}, prev, {
+      isLoaded: true,
+      previewImgList: imgList,
+    })));
+  }
+
   render() {
-    let imageList = this.props;
-    const { onClick } = this.props;
-    imageList = imageList.imageList.data;
-    return (
-      <div>
-        {imageList ? imageList.map((value) => {
-          return (
-            <div className="row">
-              <div className="col-sm-6">
-                <div className="card" onClick={() => onClick(value.attributes.url)}>
-                  <img
-                    className="card-img-top"
-                    alt="alternative"
-                    src={`https://res.cloudinary.com/thetripguru/image/upload/h_100,q_90,w_150/${value.attributes.media.banner.url}.jpg`}
-                  />
-                  <div className="card-body">
-                    <h3 className="card-title">
-                      {value.attributes.title}
-                    </h3>
-                    {value.attributes.location.name}
-                    <br />
-                    <i className="fa fa-star" />
-                    {value.attributes.rating}
-                    <br />
-                    <i className="fal fa-clock" />
-                    {value.attributes.duration_type}
-                    <br />
-                    {value.attributes.price.max_price_per_person}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        }) : null
-        }
-      </div>
-    );
+    const { imageList, isFetched, onClick } = this.props;
+    const { isLoaded, previewImgList } = this.state;
+    return (isFetched
+      ? (
+        <TourList
+          imageList={imageList}
+          isLoaded={isLoaded}
+          previewImgList={previewImgList}
+          onClick={onClick}
+          onLoad={this.onLoad}
+        />
+      )
+      : <AppLoading />);
   }
 }

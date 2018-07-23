@@ -6,9 +6,10 @@ import { fetchImageList, fetchTour } from '../actions/index';
 
 const mapStateToProps = (state) => {
   {
-    const imageList = state.imageList.data;
+    const { data, isFetched } = state.imageList;
     return {
-      imageList,
+      imageList: data,
+      isFetched,
     };
   }
 };

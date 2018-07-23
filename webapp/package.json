@@ -12,6 +12,9 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-spinkit": "^3.0.0",
+    "react-star-rating": "^1.4.2",
+    "react-stars": "^2.2.5",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
