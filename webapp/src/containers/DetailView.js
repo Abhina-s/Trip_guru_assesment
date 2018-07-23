@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
-
 import DetailView from '../presenters/detailView';
-// import { fetchImageList, fetchTour } from '../actions/index';
 
 const mapStateToProps = (state) => {
   {
@@ -14,14 +12,8 @@ const mapStateToProps = (state) => {
 };
 
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
-    // genImage: () => {
-    //   fetchImageList(dispatch);
-    // },
-    // onClick: (url) => {
-    //   fetchTour(dispatch, url);
-    // },
   };
 };
 

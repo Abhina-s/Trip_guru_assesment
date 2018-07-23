@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 
 import Home from '../presenters/home';
-import { fetchImageList, fetchTour } from '../actions/index';
+import { fetchTourList, fetchTour } from '../actions/index';
 
 
 const mapStateToProps = (state) => {
   {
-    const { data, isFetched } = state.imageList;
+    const { data, isFetched } = state.tourList;
     return {
-      imageList: data,
+      tourList: data,
       isFetched,
     };
   }
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     genImage: () => {
-      fetchImageList(dispatch);
+      fetchTourList(dispatch);
     },
     onClick: (url) => {
       fetchTour(dispatch, url);

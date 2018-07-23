@@ -1,6 +1,7 @@
 import history from '../history';
 
-async function fetchImageList(dispatch) {
+async function fetchTourList(dispatch) {
+  // fetch list of tours
   const response = await fetch('https://api.thetripguru.com/tours');
   const json = await response.json();
   dispatch({
@@ -10,6 +11,7 @@ async function fetchImageList(dispatch) {
 }
 
 async function fetchTour(dispatch, url) {
+  // fetch individual tour data
   const response = await fetch(`https://api.thetripguru.com/tours/${url}`);
   const json = await response.json();
   dispatch({
@@ -18,4 +20,4 @@ async function fetchTour(dispatch, url) {
   });
   history.push(`tour/${url}`);
 }
-export { fetchImageList, fetchTour };
+export { fetchTourList, fetchTour };

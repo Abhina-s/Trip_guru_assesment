@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import imageList from './imageList';
+import tourList from './tourList';
 import detailView from './detailView';
 
 export default combineReducers({
-  imageList,
+  tourList,
   detailView,
 });

@@ -14,6 +14,7 @@ export default class DetailView extends React.Component {
     this.onLoad = this.onLoad.bind(this);
   }
 
+  // preload images of lower resolution
   componentDidMount() {
     const { tourDetails } = this.props;
     this.setState((prev => Object.assign({}, prev, {
@@ -21,6 +22,7 @@ export default class DetailView extends React.Component {
     })));
   }
 
+  // replace the lower resolution images with proper images
   onLoad() {
     const { tourDetails } = this.props;
     this.setState((prev => Object.assign({}, prev, {
@@ -90,7 +92,7 @@ export default class DetailView extends React.Component {
                       <div key={value.key} className="col-4">
                         <i className={`fa ${value.icon}`} />
                         &nbsp;
-                        {value.title.replace(/%[a-z]*/, '') + (typeof (value.value) === typeof ('random') ? `${value.value}` : 'sd')}
+                        {value.title.replace(/%[a-z]*/, '') + (typeof (value.value) === typeof ('random') ? `${value.value}` : '')}
                       </div>
                     )
                     : null
@@ -98,7 +100,7 @@ export default class DetailView extends React.Component {
               </div>
               <div className="row no-padding">
                 <br />
-                <div className="col">
+                <div className="col justify-content-start no-padding">
                   <h4>
                     Overview
                   </h4>

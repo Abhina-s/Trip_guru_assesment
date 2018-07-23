@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactStars from 'react-stars';
-import Spinner from 'react-spinkit';
-
 
 const TourList = ({
-  imageList, isLoaded, previewImgList, onClick, onLoad,
+  tourList, isLoaded, previewImgList, onClick, onLoad,
 }) => {
-  const { data } = imageList;
+  const { data } = tourList;
   return (
     <div className="container-fluid">
       <div className="row">
         {data.map((value, index) => {
           return (
             <div key={value.id} className="col-md-6">
-              <div className="card" style={{ width: '40rem' }} onClick={() => onClick(value.attributes.url)}>
+              <div
+                className="card"
+                role="presentation"
+                style={{ width: '40rem' }}
+                onClick={() => onClick(value.attributes.url)}
+              >
                 <img
                   className="card-img-top"
                   alt="alternative"
@@ -71,8 +74,8 @@ const TourList = ({
 
 const AppLoading = () => {
   return (
-    <div className="container-fluid justify-content-center align-items-center">
-      <Spinner style={{ width: 100, height: 100 }} name="circle" />
+    <div className="d-flex justify-content-center align-items-center">
+      <img alt="spinner" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />
     </div>
   );
 };
@@ -93,9 +96,10 @@ export default class Home extends React.Component {
     genImage();
   }
 
+  // Maintain a list of all low resolution images needed for the app
   componentWillReceiveProps(nextProps) {
     const imgList = [];
-    nextProps.imageList.data.map(value => imgList.push(
+    nextProps.tourList.data.map(value => imgList.push(
       `https://res.cloudinary.com/thetripguru/image/upload/h_10,w_10/${value.attributes.media.banner.url}.jpg`,
     ));
     this.setState((prev => Object.assign({}, prev, {
@@ -103,10 +107,11 @@ export default class Home extends React.Component {
     })));
   }
 
+  // replace the current low resolution images with high resoluion images
   onLoad() {
-    const { imageList } = this.props;
+    const { tourList } = this.props;
     const imgList = [];
-    imageList.data.map(value => imgList.push(
+    tourList.data.map(value => imgList.push(
       `https://res.cloudinary.com/thetripguru/image/upload/h_300,w_500/${value.attributes.media.banner.url}.jpg`,
     ));
     this.setState((prev => Object.assign({}, prev, {
@@ -116,12 +121,12 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { imageList, isFetched, onClick } = this.props;
+    const { tourList, isFetched, onClick } = this.props;
     const { isLoaded, previewImgList } = this.state;
     return (isFetched
       ? (
         <TourList
-          imageList={imageList}
+          tourList={tourList}
           isLoaded={isLoaded}
           previewImgList={previewImgList}
           onClick={onClick}
