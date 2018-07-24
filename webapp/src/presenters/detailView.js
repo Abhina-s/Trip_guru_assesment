@@ -38,27 +38,26 @@ export default class DetailView extends React.Component {
       <div>
         {isFetched
           ? (
-            <div className="container-fluid no-padding">
+            <div className="container-fluid">
               <div className="row justify-content-center no-padding">
-                <div className="col-md-12">
-                  <img
-                    alt="alternative"
-                    src={previewImg}
-                    onLoad={() => this.onLoad()}
-                    style={{
-                      width: SCREEN_WIDTH,
-                      height: SCREEN_HEIGHT * 0.75,
-                      objectFit: 'cover',
-                      filter: `${isLoaded ? '' : 'blur(50px)'}`,
-                      transition: '0.5s filter linear',
-                    }}
-                  />
-                </div>
+                <img
+                  alt="alternative"
+                  src={previewImg}
+                  onLoad={() => this.onLoad()}
+                  style={{
+                    width: SCREEN_WIDTH,
+                    height: SCREEN_HEIGHT * 0.75,
+                    filter: `${isLoaded ? '' : 'blur(50px)'}`,
+                    transition: '0.5s filter linear',
+                  }}
+                />
               </div>
               <div className="row justify-content-center no-padding">
                 <div className="col-md-12">
                   <h3>
-                    {tourDetails.data.attributes.title}
+                    <strong>
+                      {tourDetails.data.attributes.title}
+                    </strong>
                   </h3>
                 </div>
               </div>
@@ -85,7 +84,7 @@ export default class DetailView extends React.Component {
                 </div>
               </div>
               <hr />
-              <div className="row justify-content-start no-padding">
+              <div className="row justify-content-center no-padding">
                 {tourDetails.data.attributes.deals.map(value => (
                   value.value
                     ? (
@@ -98,9 +97,9 @@ export default class DetailView extends React.Component {
                     : null
                 ))}
               </div>
+              <hr />
               <div className="row no-padding">
-                <br />
-                <div className="col justify-content-start no-padding">
+                <div className="col-12">
                   <h4>
                     Overview
                   </h4>

@@ -10,7 +10,7 @@ const TourList = ({
       <div className="row">
         {data.map((value, index) => {
           return (
-            <div key={value.id} className="col-md-6">
+            <div key={value.id} className="col-md-6 col-sm">
               <div
                 className="card"
                 role="presentation"
